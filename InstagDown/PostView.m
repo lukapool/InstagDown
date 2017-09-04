@@ -197,9 +197,7 @@
 }
 
 #pragma mark - UIScrollView Delegate
-//- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-//    NSLog(@"%lf", scrollView.contentOffset.x);
-//}
+
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
 //    NSLog(@"%lf", targetContentOffset->x);

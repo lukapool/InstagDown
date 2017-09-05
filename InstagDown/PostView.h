@@ -15,7 +15,7 @@ typedef void (^CompleteBlock)(void);
 @protocol PostViewDelegate <NSObject>
 - (void)postViewDidClickMore:(PostView *)postView;
 - (void)postViewDidClickShare:(PostView *)postView withActivityItems:(NSArray *)items;
-- (void)postViewDidClickSave:(PostView *)postView;
+- (void)postViewDidClickSave:(PostView *)postView withIGMedia:(IGMedia *)media;
 - (void)postView:(PostView *)postView didTapProfileImag:(UIImageView *)profileImageView;
 
 @end

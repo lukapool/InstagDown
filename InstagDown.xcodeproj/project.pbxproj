@@ -22,6 +22,8 @@
 		A14015DA1F5AB87500FCB8C4 /* IGMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = A14015D91F5AB87500FCB8C4 /* IGMedia.m */; };
 		A14015DD1F5B1CB000FCB8C4 /* NSArray+FormateDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = A14015DC1F5B1CB000FCB8C4 /* NSArray+FormateDescription.m */; };
 		A14015E01F5D5C8500FCB8C4 /* CheckURLTool.m in Sources */ = {isa = PBXBuildFile; fileRef = A14015DF1F5D5C8400FCB8C4 /* CheckURLTool.m */; };
+		A14015E31F5E789700FCB8C4 /* MediaShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = A14015E21F5E789700FCB8C4 /* MediaShowView.m */; };
+		A14015E91F5EA5EE00FCB8C4 /* SDImageCache+GetCacheImagePath.m in Sources */ = {isa = PBXBuildFile; fileRef = A14015E81F5EA5EE00FCB8C4 /* SDImageCache+GetCacheImagePath.m */; };
 		A1C4A4301F5091D6006A15D4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A1C4A42F1F5091D6006A15D4 /* main.m */; };
 		A1C4A4331F5091D6006A15D4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A1C4A4321F5091D6006A15D4 /* AppDelegate.m */; };
 		A1C4A4361F5091D6006A15D4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1C4A4351F5091D6006A15D4 /* ViewController.m */; };
@@ -63,6 +65,10 @@
 		A14015DC1F5B1CB000FCB8C4 /* NSArray+FormateDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+FormateDescription.m"; sourceTree = "<group>"; };
 		A14015DE1F5D5C8400FCB8C4 /* CheckURLTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckURLTool.h; sourceTree = "<group>"; };
 		A14015DF1F5D5C8400FCB8C4 /* CheckURLTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckURLTool.m; sourceTree = "<group>"; };
+		A14015E11F5E789700FCB8C4 /* MediaShowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaShowView.h; sourceTree = "<group>"; };
+		A14015E21F5E789700FCB8C4 /* MediaShowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaShowView.m; sourceTree = "<group>"; };
+		A14015E71F5EA5EE00FCB8C4 /* SDImageCache+GetCacheImagePath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SDImageCache+GetCacheImagePath.h"; sourceTree = "<group>"; };
+		A14015E81F5EA5EE00FCB8C4 /* SDImageCache+GetCacheImagePath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SDImageCache+GetCacheImagePath.m"; sourceTree = "<group>"; };
 		A1C4A42B1F5091D6006A15D4 /* InstagDown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InstagDown.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1C4A42F1F5091D6006A15D4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A1C4A4311F5091D6006A15D4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -139,6 +145,8 @@
 				A14015AA1F598D8D00FCB8C4 /* PostView.h */,
 				A14015AB1F598D8D00FCB8C4 /* PostView.m */,
 				A14015AD1F598E9200FCB8C4 /* PostView.xib */,
+				A14015E11F5E789700FCB8C4 /* MediaShowView.h */,
+				A14015E21F5E789700FCB8C4 /* MediaShowView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -155,6 +163,8 @@
 				A14015DC1F5B1CB000FCB8C4 /* NSArray+FormateDescription.m */,
 				A14015DE1F5D5C8400FCB8C4 /* CheckURLTool.h */,
 				A14015DF1F5D5C8400FCB8C4 /* CheckURLTool.m */,
+				A14015E71F5EA5EE00FCB8C4 /* SDImageCache+GetCacheImagePath.h */,
+				A14015E81F5EA5EE00FCB8C4 /* SDImageCache+GetCacheImagePath.m */,
 			);
 			name = Other;
 			sourceTree = "<group>";
@@ -341,11 +351,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A14015E91F5EA5EE00FCB8C4 /* SDImageCache+GetCacheImagePath.m in Sources */,
 				A1C4A4361F5091D6006A15D4 /* ViewController.m in Sources */,
 				A1C4A4331F5091D6006A15D4 /* AppDelegate.m in Sources */,
 				A14015AC1F598D8E00FCB8C4 /* PostView.m in Sources */,
 				A14015A31F56AE8300FCB8C4 /* LKATextField.m in Sources */,
 				A14015A91F56EAD100FCB8C4 /* LKAYoutubeLikeLoadingIndicatorView.m in Sources */,
+				A14015E31F5E789700FCB8C4 /* MediaShowView.m in Sources */,
 				A140157D1F557D8C00FCB8C4 /* MainTabBarController.m in Sources */,
 				A1C4A4301F5091D6006A15D4 /* main.m in Sources */,
 				A14015801F557E5800FCB8C4 /* DownloadViewController.m in Sources */,

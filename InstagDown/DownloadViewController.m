@@ -15,6 +15,7 @@
 #import "PostView.h"
 #import "IGPost.h"
 #import "CheckURLTool.h"
+#import <Photos/Photos.h>
 
 @interface DownloadViewController () <ExtractViewDelegate, PostViewDelegate>
 @property (nonatomic, strong) CWStatusBarNotification *notification;
@@ -178,9 +179,29 @@
     [self presentViewController:activityCV animated:YES completion:nil];
 }
 
-- (void)postViewDidClickSave:(PostView *)postView {
-    
+- (void)postViewDidClickSave:(PostView *)postView withIGMedia:(IGMedia *)media{
+    if (media.savePath == nil) {
+        [self.notification displayNotificationWithMessage:@"Please wait for downloading..." forDuration:3.0];
+    }
+    if (media.mediaType == IGMediaTypeVideo) {
+        NSURL *url = media.savePath;
+        [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+            [PHAssetChangeRequest creationRequestForAssetFromVideoAtFileURL:url];
+        } completionHandler:^(BOOL success, NSError * _Nullable error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (success) {
+                    [self.notification displayNotificationWithMessage:@"Success to Save Video" forDuration:3.0];
+                } else {
+                    [self.notification displayNotificationWithMessage:@"Failed to Save Video" forDuration:3.0];
+                }
+            });
+        }];
+    } else if (media.mediaType == IGMediaTypeImage) {
+        
+    }
 }
+
+
 
 - (void)postViewDidClickMore:(PostView *)postView {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];

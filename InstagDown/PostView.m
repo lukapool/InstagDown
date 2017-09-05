@@ -9,6 +9,7 @@
 #import "PostView.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SDWebImage/UIView+WebCache.h>
+#import "MediaShowView.h"
 
 
 
@@ -55,14 +56,12 @@
     
     for (NSUInteger i = 0; i < mediaCount; i++) {
         IGMedia *media = self.post.medias[i];
-        UIImageView *imageView = [[UIImageView alloc] init];
-        [imageView sd_setShowActivityIndicatorView:YES];
-        [imageView sd_setIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        [imageView sd_setImageWithURL:[NSURL URLWithString:media.previewURL] placeholderImage:nil options:SDWebImageRetryFailed];
-        [self.sidecar addSubview:imageView];
-        [self.previewsArray addObject:imageView];
+        MediaShowView *mediaShowView = [[MediaShowView alloc] init];
+        mediaShowView.media = media;
+        [self.sidecar addSubview:mediaShowView];
+        [self.previewsArray addObject:mediaShowView];
         
-        imageView.frame = CGRectMake(i * width, 0, width, width);
+        mediaShowView.frame = CGRectMake(i * width, 0, width, width);
     }
     
     self.sidecar.contentSize = CGSizeMake(width * mediaCount, 0);
@@ -185,11 +184,16 @@
 }
 
 - (IBAction)saveMedia:(UIButton *)sender {
-    [self.delegate postViewDidClickSave:self];
+    [self.delegate postViewDidClickSave:self withIGMedia:[self whichMedia]];
 }
 
 - (IBAction)share:(UIButton *)sender {
     [self.delegate postViewDidClickShare:self withActivityItems:@[self.profileImage.image]];
+}
+
+- (IGMedia *)whichMedia {
+    NSUInteger currentPage = self.pageControl.currentPage;
+    return self.post.medias[currentPage];
 }
 
 - (void)profileImageDidTap:(UITapGestureRecognizer *)gr {
@@ -197,13 +201,9 @@
 }
 
 #pragma mark - UIScrollView Delegate
-
-
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
-//    NSLog(@"%lf", targetContentOffset->x);
     CGFloat endX = targetContentOffset->x;
     NSUInteger currentIndex = (NSUInteger)(endX / self.bounds.size.width);
-//    NSLog(@"%ld", currentIndex);
     self.pageControl.currentPage = currentIndex;
 }
 @end

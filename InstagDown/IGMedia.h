@@ -21,6 +21,7 @@ typedef NS_ENUM(NSUInteger, IGMediaType) {
 @property (nonatomic, assign) CGFloat meidaWidth;
 @property (nonatomic, copy) NSString *previewURL;
 @property (nonatomic, copy) NSString *sourceURL;
+@property (nonatomic, copy) NSURL *savePath;
 
 - (instancetype)initWithMediaType:(IGMediaType)mediaType shortcode:(NSString *)shortcode mediaHeight:(CGFloat)mediaHeight mediaWidth:(CGFloat)mediaWidth previewURL:(NSString *)previewURL andSourceURL:(NSString *)sourceURL;
 + (instancetype)mediaWithDic:(NSDictionary *)dict;

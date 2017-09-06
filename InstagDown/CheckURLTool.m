@@ -32,4 +32,5 @@ static NSString *kPostUrlPrefixTwo = @"https://instagram.com/p/";
     }
     return urlString;
 }
+
 @end

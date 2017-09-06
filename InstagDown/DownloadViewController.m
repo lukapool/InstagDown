@@ -36,10 +36,14 @@
     [self setupExtractView];
 
     self.automaticallyAdjustsScrollViewInsets = NO;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkPasteboard) name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)checkPasteboard {
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
     if (pasteboard.hasStrings) {
         NSString *copyString = pasteboard.string;
@@ -59,6 +63,11 @@
             [self presentViewController:tipController animated:YES completion:nil];
         }
     }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self checkPasteboard];
 }
 
 - (void)setupPostView {

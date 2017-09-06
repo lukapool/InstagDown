@@ -188,7 +188,10 @@
 }
 
 - (IBAction)share:(UIButton *)sender {
-    [self.delegate postViewDidClickShare:self withActivityItems:@[self.profileImage.image]];
+    IGMedia *media = [self whichMedia];
+    if (media.savePath) {
+        [self.delegate postViewDidClickShare:self withActivityItems:@[media.savePath]];
+    }
 }
 
 - (IGMedia *)whichMedia {

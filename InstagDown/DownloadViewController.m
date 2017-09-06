@@ -172,33 +172,47 @@
 
 #pragma mark - Post View  Delegate
 - (void)postViewDidClickShare:(PostView *)postView withActivityItems:(NSArray *)items {
+    
     UIActivityViewController *activityCV = [[UIActivityViewController alloc] initWithActivityItems:[items copy] applicationActivities:nil];
-//    activityCV.completionWithItemsHandler = ^(UIActivityType  _Nullable activityType, BOOL completed, NSArray * _Nullable returnedItems, NSError * _Nullable activityError) {
-//        
-//    };
     [self presentViewController:activityCV animated:YES completion:nil];
 }
 
 - (void)postViewDidClickSave:(PostView *)postView withIGMedia:(IGMedia *)media{
+    [self saveMedia:media];
+}
+
+- (void)saveMedia:(IGMedia *)media {
     if (media.savePath == nil) {
         [self.notification displayNotificationWithMessage:@"Please wait for downloading..." forDuration:3.0];
     }
-    if (media.mediaType == IGMediaTypeVideo) {
-        NSURL *url = media.savePath;
-        [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+    NSString *successNoti = [NSString stringWithFormat:@"Success to Save %@", media.mediaType == IGMediaTypeVideo ? @"Video" : @"Image"];
+    NSString *failedNoti = [NSString stringWithFormat:@"Failed to Save %@", media.mediaType == IGMediaTypeVideo ? @"Video" : @"Image"];
+    NSURL *url = media.savePath;
+    dispatch_semaphore_t signal = dispatch_semaphore_create(0);
+    [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+        if (status == PHAuthorizationStatusAuthorized) {
+            
+        } else {
+            
+        }
+        dispatch_semaphore_signal(signal);
+    }];
+    dispatch_semaphore_wait(signal, DISPATCH_TIME_FOREVER);
+    
+    [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+        if (media.mediaType == IGMediaTypeVideo)
             [PHAssetChangeRequest creationRequestForAssetFromVideoAtFileURL:url];
-        } completionHandler:^(BOOL success, NSError * _Nullable error) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (success) {
-                    [self.notification displayNotificationWithMessage:@"Success to Save Video" forDuration:3.0];
-                } else {
-                    [self.notification displayNotificationWithMessage:@"Failed to Save Video" forDuration:3.0];
-                }
-            });
-        }];
-    } else if (media.mediaType == IGMediaTypeImage) {
-        
-    }
+        else
+            [PHAssetChangeRequest creationRequestForAssetFromImage:[UIImage imageWithContentsOfFile:url.absoluteString]];
+    } completionHandler:^(BOOL success, NSError * _Nullable error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (success) {
+                [self.notification displayNotificationWithMessage:successNoti forDuration:3.0];
+            } else {
+                [self.notification displayNotificationWithMessage:failedNoti forDuration:3.0];
+            }
+        });
+    }];
 }
 
 

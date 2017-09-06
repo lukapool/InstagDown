@@ -26,6 +26,10 @@ static NSString *kPostUrlPrefixTwo = @"https://instagram.com/p/";
             *type = ExtractInvalidURL;
         }
     }
+    NSRange range = [urlString rangeOfString:@"?"];
+    if (range.location != NSNotFound) {
+        urlString = [urlString substringToIndex:range.location];
+    }
     return urlString;
 }
 @end

@@ -98,7 +98,9 @@
     NSURL *url = [NSURL URLWithString:self.media.sourceURL];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     self.downloadTask = [self.videoDownloadManager downloadTaskWithRequest:request progress:^(NSProgress * _Nonnull downloadProgress) {
-        self.indicateLayer.strokeEnd = downloadProgress.fractionCompleted;
+        dispatch_async(dispatch_get_main_queue(), ^{
+                    self.indicateLayer.strokeEnd = downloadProgress.fractionCompleted;
+        });
     } destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
         NSURL *documentsDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
         return [documentsDirectoryURL URLByAppendingPathComponent:[response suggestedFilename]];
@@ -117,8 +119,13 @@
 
 - (void)downloadImage {
     self.loadingLayer.hidden = NO;
-    [self.imageView sd_setImageWithURL:[NSURL URLWithString:self.media.previewURL] placeholderImage:nil options:SDWebImageRetryFailed progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
-        self.indicateLayer.strokeEnd = (CGFloat)receivedSize / expectedSize;
+    [self.imageView sd_setImageWithURL:[NSURL URLWithString:self.media.sourceURL] placeholderImage:nil options:SDWebImageRetryFailed progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
+        NSLog(@"%@", [NSThread currentThread]);
+        NSLog(@"%ld:%ld", receivedSize, expectedSize);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.indicateLayer.strokeEnd = (CGFloat)receivedSize / (CGFloat)expectedSize;
+        });
+        
     } completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
         if (error) {
             self.indicateLayer.strokeEnd = 0.0;
